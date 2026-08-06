@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/src/">
+    <Project Path="src/eAgenda.Dominio/eAgenda.Dominio.csproj" />
+    <Project Path="src/eAgenda.Aplicacao/eAgenda.Aplicacao.csproj" />
+    <Project Path="src/eAgenda.Infra/eAgenda.Infra.csproj" />
+    <Project Path="src/eAgenda.WebApp/eAgenda.WebApp.csproj" />
+  </Folder>
   <Project Path="eAgenda.Database/eAgenda.Database.sqlproj" />
-  <Project Path="eAgenda.WebApp/eAgenda.WebApp.csproj" />
 </Solution>

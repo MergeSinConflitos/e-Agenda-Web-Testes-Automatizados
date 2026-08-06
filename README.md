@@ -145,7 +145,7 @@ Campos obrigatórios:
 4. Para executar o projeto compilando em tempo real
 
    ```bash
-   dotnet run --project eAgenda.WebApp
+   dotnet run --project src/eAgenda.WebApp
    ```
 
 ## Requisitos
