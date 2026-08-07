@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\eAgenda.Aplicacao\eAgenda.Aplicacao.csproj" />
     <ProjectReference Include="..\..\src\eAgenda.Dominio\eAgenda.Dominio.csproj" />
   </ItemGroup>
 
