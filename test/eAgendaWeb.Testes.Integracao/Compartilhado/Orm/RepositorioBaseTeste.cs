@@ -27,6 +27,7 @@ namespace eAgendaWeb.Testes.Integracao.Compartilhado.Orm
         [TestInitialize]
         public void InicializarContexto()
         {
+            dbContext = CriarDbContext();
 
             // Categoria
             repositorioCategoria = new RepositorioCategoriaEmOrm(dbContext);
@@ -79,16 +80,14 @@ namespace eAgendaWeb.Testes.Integracao.Compartilhado.Orm
             });
         }
 
-        /*
-        private DbContext CriarDbContext(Guid guid)
+        private static EAgendaDbContext CriarDbContext()
         {
-               DbContextOptions<DbContext> options =
-            new DbContextOptionsBuilder<DbContext>()
-                .UseInMemoryDatabase($"integracao-{Guid.NewGuid():N}")
-                .Options;
+            DbContextOptions<EAgendaDbContext> options =
+                new DbContextOptionsBuilder<EAgendaDbContext>()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options;
 
-        return new DbContext(options, new ProvedorDeUsuarioFake(userId));
+            return new EAgendaDbContext(options);
         }
-        */
     }
 }
