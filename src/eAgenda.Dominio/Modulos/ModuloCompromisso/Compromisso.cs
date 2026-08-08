@@ -43,39 +43,85 @@ public class Compromisso : EntidadeBase<Compromisso>
     {
         List<string> erros = [];
 
-        if (string.IsNullOrWhiteSpace(Assunto) || Assunto.Length < 2 || Assunto.Length > 100)
-            erros.Add("O campo \"Assunto\" deve conter entre 2 e 100 caracteres.");
+        if (string.IsNullOrWhiteSpace(Assunto) ||
+            Assunto.Length < 2 ||
+            Assunto.Length > 100)
+        {
+            erros.Add(
+                "O campo \"Assunto\" deve conter entre 2 e 100 caracteres."
+            );
+        }
 
         if (DataOcorrencia == default)
-            erros.Add("O campo \"Data de Ocorrência\" deve ser preenchido.");
+            erros.Add(
+                "O campo \"Data de Ocorrência\" deve ser preenchido."
+            );
 
         if (HoraInicio == default)
-            erros.Add("O campo \"Hora de Início\" deve ser preenchido.");
+            erros.Add(
+                "O campo \"Hora de Início\" deve ser preenchido."
+            );
 
         if (HoraTermino == default)
-            erros.Add("O campo \"Hora de Término\" deve ser preenchido.");
+            erros.Add(
+                "O campo \"Hora de Término\" deve ser preenchido."
+            );
 
         if (HoraTermino <= HoraInicio)
-            erros.Add("A hora de término deve ser posterior à hora de início.");
+            erros.Add(
+                "A hora de término deve ser posterior à hora de início."
+            );
 
         if (!Enum.IsDefined(Tipo))
-            erros.Add("O campo \"Tipo de Compromisso\" deve ser preenchido.");
+            erros.Add(
+                "O campo \"Tipo de Compromisso\" deve ser preenchido."
+            );
 
-        if (Tipo == TipoCompromisso.Presencial && string.IsNullOrWhiteSpace(Local))
-            erros.Add("O campo \"Local\" deve ser preenchido para compromissos presenciais.");
+        if (Tipo == TipoCompromisso.Presencial &&
+            string.IsNullOrWhiteSpace(Local))
+        {
+            erros.Add(
+                "O campo \"Local\" deve ser preenchido para compromissos presenciais."
+            );
+        }
 
-        if (Tipo == TipoCompromisso.Remoto && string.IsNullOrWhiteSpace(Link))
-            erros.Add("O campo \"Link\" deve ser preenchido para compromissos remotos.");
+        if (Tipo == TipoCompromisso.Remoto)
+        {
+            if (string.IsNullOrWhiteSpace(Link))
+            {
+                erros.Add(
+                    "O campo \"Link\" deve ser preenchido para compromissos remotos."
+                );
+            }
+            else if (Link.Length > 500)
+            {
+                erros.Add(
+                    "O campo \"Link\" deve conter no máximo 500 caracteres."
+                );
+            }
+            else if (!Uri.TryCreate(
+                         Link,
+                         UriKind.Absolute,
+                         out Uri? uri) ||
+                     (uri.Scheme != Uri.UriSchemeHttp &&
+                      uri.Scheme != Uri.UriSchemeHttps))
+            {
+                erros.Add(
+                    "O campo \"Link\" deve conter uma URL válida."
+                );
+            }
+        }
 
-        if (!string.IsNullOrWhiteSpace(Local) && Local.Length > 255)
-            erros.Add("O campo \"Local\" deve conter no máximo 255 caracteres.");
-
-        if (!string.IsNullOrWhiteSpace(Link) && Link.Length > 500)
-            erros.Add("O campo \"Link\" deve conter no máximo 500 caracteres.");
+        if (!string.IsNullOrWhiteSpace(Local) &&
+            Local.Length > 255)
+        {
+            erros.Add(
+                "O campo \"Local\" deve conter no máximo 255 caracteres."
+            );
+        }
 
         return erros;
     }
-
     public override void Atualizar(Compromisso entidadeAtualizada)
     {
         Assunto = entidadeAtualizada.Assunto;
