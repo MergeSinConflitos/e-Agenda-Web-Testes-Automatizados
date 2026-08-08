@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eAgendaWeb.Testes.Integracao.Compartilhado.Orm
 {
-    public sealed class RepositorioBaseTeste()
+    public class RepositorioBaseTeste()
     {
         protected EAgendaDbContext dbContext = null!;
         protected RepositorioCategoriaEmOrm repositorioCategoria = null!;
