@@ -45,10 +45,12 @@ public sealed class TestApplicationFactory : WebApplicationFactory<Program>
     {
         IServer servidor = Services.GetRequiredService<IServer>();
 
-        IServerAddressesFeature? enderecos = servidor.Features.Get<IServerAddressesFeature>();
+        IServerAddressesFeature? enderecos =
+            servidor.Features.Get<IServerAddressesFeature>();
 
         if (enderecos is null)
-            throw new InvalidOperationException("Não foi possível obter a URL do servidor");
+            throw new InvalidOperationException(
+                "Não foi possível obter a URL do servidor");
 
         return enderecos.Addresses.Single();
     }
