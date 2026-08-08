@@ -24,15 +24,15 @@ public record CadastrarCompromissoViewModel(
 
     [Required(ErrorMessage = "O campo \"Data de Ocorrência\" deve ser preenchido.")]
     [DataType(DataType.Date)]
-    DateTime DataOcorrencia,
+    DateTime? DataOcorrencia,
 
     [Required(ErrorMessage = "O campo \"Hora de Início\" deve ser preenchido.")]
     [DataType(DataType.Time)]
-    TimeSpan HoraInicio,
+    TimeSpan? HoraInicio,
 
     [Required(ErrorMessage = "O campo \"Hora de Término\" deve ser preenchido.")]
     [DataType(DataType.Time)]
-    TimeSpan HoraTermino,
+    TimeSpan? HoraTermino,
 
     [Required(ErrorMessage = "O campo \"Tipo de Compromisso\" deve ser preenchido.")]
     TipoCompromisso Tipo,
@@ -58,15 +58,15 @@ public record EditarCompromissoViewModel(
 
     [Required(ErrorMessage = "O campo \"Data de Ocorrência\" deve ser preenchido.")]
     [DataType(DataType.Date)]
-    DateTime DataOcorrencia,
+    DateTime? DataOcorrencia,
 
     [Required(ErrorMessage = "O campo \"Hora de Início\" deve ser preenchido.")]
     [DataType(DataType.Time)]
-    TimeSpan HoraInicio,
+    TimeSpan? HoraInicio,
 
     [Required(ErrorMessage = "O campo \"Hora de Término\" deve ser preenchido.")]
     [DataType(DataType.Time)]
-    TimeSpan HoraTermino,
+    TimeSpan? HoraTermino,
 
     [Required(ErrorMessage = "O campo \"Tipo de Compromisso\" deve ser preenchido.")]
     TipoCompromisso Tipo,
