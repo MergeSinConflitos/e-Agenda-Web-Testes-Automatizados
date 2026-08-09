@@ -79,6 +79,44 @@ namespace eAgenda.Testes.Unidade.Modulos.ModuloContato
         }
 
         [TestMethod]
+        public void Validar_ComNomeNoLimiteMinimo_NaoDeveRetornarErro()
+        {
+            // Arranjo
+            Contato contato = new Contato(
+                new string('A', 2),
+                email,
+                telefone,
+                null,
+                null
+            );
+
+            // Ação
+            List<string> erros = contato.Validar();
+
+            // Asserção
+            Assert.IsEmpty(erros);
+        }
+
+        [TestMethod]
+        public void Validar_ComNomeNoLimiteMaximo_NaoDeveRetornarErro()
+        {
+            // Arranjo
+            Contato contato = new Contato(
+                new string('A', 100),
+                email,
+                telefone,
+                null,
+                null
+            );
+
+            // Ação
+            List<string> erros = contato.Validar();
+
+            // Asserção
+            Assert.IsEmpty(erros);
+        }
+
+        [TestMethod]
         public void Validar_ComEmailVazio_DeveRetornarErro()
         {
             // Arranjo
@@ -108,6 +146,29 @@ namespace eAgenda.Testes.Unidade.Modulos.ModuloContato
             Contato contato = new Contato(
                 nome,
                 "joao123.com",
+                telefone,
+                null,
+                null
+            );
+
+            // Ação
+            List<string> erros = contato.Validar();
+
+            // Asserção
+            Assert.HasCount(1, erros);
+            Assert.AreEqual(
+                "O campo \"E-mail\" deve conter um endereço de e-mail válido.",
+                erros.First()
+            );
+        }
+
+        [TestMethod]
+        public void Validar_ComEmailSemDominio_DeveRetornarErro()
+        {
+            // Arranjo
+            Contato contato = new Contato(
+                nome,
+                "joao@",
                 telefone,
                 null,
                 null
