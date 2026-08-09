@@ -104,6 +104,6 @@ public sealed class CategoriaTests()
         categoria.Atualizar(categoriaAtualizada);
 
         //Asserção
-        Assert.AreEqual("Alimento", categoriaAtualizada.Titulo);
+        Assert.AreEqual("Alimento", categoria.Titulo);
     }
 }
