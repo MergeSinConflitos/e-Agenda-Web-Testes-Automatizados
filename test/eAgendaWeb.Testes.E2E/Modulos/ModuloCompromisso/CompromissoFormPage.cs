@@ -57,6 +57,15 @@ public class CompromissoFormPage
         page.GetByText(
             "O campo \"Hora de Término\" deve ser preenchido."
         );
+    public ILocator ErroHoraTerminoMenorQueHoraInicio =>
+    page.GetByText(
+         "A hora de término deve ser posterior à hora de início."
+    );
+
+    public ILocator ErroConflitoDeHorario =>
+    page.GetByText(
+        "Já existe um compromisso cadastrado neste intervalo de horário."
+    );
 
     public ILocator ErroTipoObrigatorio =>
         page.GetByText(

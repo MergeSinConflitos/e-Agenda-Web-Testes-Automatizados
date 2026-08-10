@@ -150,6 +150,64 @@ public sealed class CompromissoE2ETests : E2ETestsBase
     }
 
     [TestMethod]
+    public async Task DeveExibir_ErrosAoCadastrar_CompromissoComHoraInicioMaiorQueHoraTermino()
+    {
+        //Arrange
+        CompromissoFormPage formPage = new(Page, UrlBase);
+
+        // Act
+        await formPage.IrParaCadastroAsync();
+
+        await formPage.PreencherAssuntoAsync("Reuniao");
+        await formPage.PreencherDataOcorrenciaAsync("2026-08-10");
+        await formPage.PreencherHoraInicioAsync("10:00");
+        await formPage.PreencherHoraTerminoAsync("09:00");
+        await formPage.SelecionarTipoAsync("Presencial");
+        await formPage.PreencherLocalAsync("Uniplac");
+
+        await formPage.ConfirmarAsync();
+
+        // Assert
+        await Expect(
+            formPage.ErroHoraTerminoMenorQueHoraInicio
+        ).ToBeVisibleAsync();
+    }
+
+    [TestMethod]
+    public async Task NaoDeveCadastrar_Compromisso_ComHorarioConflitante()
+    {
+        // Arrange
+        await CadastrarCompromissoAsync(
+            "Reunião existente",
+            "2026-08-10",
+            "14:00",
+            "15:00",
+            "Presencial",
+            "Escritório",
+            null
+        );
+
+        CompromissoFormPage formPage = new(Page, UrlBase);
+
+        await formPage.IrParaCadastroAsync();
+
+        await formPage.PreencherAssuntoAsync("Nova reunião");
+        await formPage.PreencherDataOcorrenciaAsync("2026-08-10");
+        await formPage.PreencherHoraInicioAsync("14:30");
+        await formPage.PreencherHoraTerminoAsync("16:00");
+        await formPage.SelecionarTipoAsync("Presencial");
+        await formPage.PreencherLocalAsync("Sala de Reuniões");
+
+        // Act
+        await formPage.ConfirmarAsync();
+
+        // Assert
+        await Expect(
+            formPage.ErroConflitoDeHorario
+        ).ToBeVisibleAsync();
+    }
+
+    [TestMethod]
     public async Task NaoDeveCadastrar_CompromissoPresencial_SemLocal()
     {
         // Arrange
